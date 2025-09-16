@@ -1,0 +1,10 @@
+/* Right-align the placeholder only, when .ph-rtl is present */
+.ph-rtl::placeholder {
+    text-align: right !important;
+    direction: rtl !important;
+}
+/* Vendor prefixes for wider browser support */
+.ph-rtl::-webkit-input-placeholder { text-align: right !important; direction: rtl !important; }
+.ph-rtl::-moz-placeholder        { text-align: right !important; }
+.ph-rtl:-ms-input-placeholder    { text-align: right !important; }
+.ph-rtl::-ms-input-placeholder   { text-align: right !important; }
