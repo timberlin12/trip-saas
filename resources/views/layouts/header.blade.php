@@ -48,8 +48,13 @@
                 <!--begin::User menu-->
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
-                    <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="{{ asset('media/avatars/300-1.jpg') }}" alt="user" />
+                    <div class="cursor-pointer symbol symbol-30px symbol-md-40px d-flex align-items-center justify-content-center bg-light text-dark fw-bold" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" style="font-size: 16px;">
+                        @php
+                            $words = explode(' ', Auth::user()->name);
+                            $initials = strtoupper($words[0][0]);
+                            if(count($words) > 1) $initials .= strtoupper($words[1][0]);
+                        @endphp
+                        {{ $initials }}
                     </div>
                     <!--begin::User account menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
@@ -57,15 +62,20 @@
                         <div class="menu-item px-3">
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
-                                <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="{{ asset('media/avatars/300-1.jpg') }}" />
+                                <div class="symbol symbol-50px me-5 d-flex align-items-center justify-content-center fw-bold text-dark" style="background: linear-gradient(135deg, #fdfbfb, #ebedee); font-size: 22 $user = Auth::user()px;">
+                                    {{ $initials }}
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-                                    <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                    <div class="fw-bolder d-flex align-items-center fs-5">{{ Auth::user()->name }}
+                                    </div>
+                                    <a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ Auth::user()->email }}</a>
+                                    <div class="fw-bolder d-flex align-items-center fs-5">
+                                        <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 mt-1" style="width: auto;">
+                                            {{ Auth::user()->getRoleNames()->first() ?? 'N/A' }}
+                                        </span>
+                                    </div>
                                 </div>
                                 <!--end::Username-->
                             </div>
@@ -76,7 +86,7 @@
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My Profile</a>
+                            <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">{{ __('messages.my_profile') }}</a>
                         </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
@@ -105,7 +115,7 @@
                         <div class="separator my-2"></div>
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
-                        <!-- <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="{{ app()->getLocale() == 'ar' ? 'right-start' : 'left-start' }}">
+                        <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="{{ app()->getLocale() == 'ar' ? 'right-start' : 'left-start' }}">
                             <a href="#" class="menu-link px-5">
                                 <span class="menu-title position-relative">
                                     {{ __('Language') }}
@@ -117,7 +127,9 @@
                                     </span>
                                 </span>
                             </a>
+                            <!--begin::Menu sub-->
                             <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                <!-- English -->
                                 <div class="menu-item px-3">
                                     <a href="{{ url('lang/en') }}"
                                     class="menu-link d-flex px-5 {{ app()->getLocale() == 'en' ? 'active' : '' }}">
@@ -127,6 +139,7 @@
                                         English
                                     </a>
                                 </div>
+                                <!-- Arabic -->
                                 <div class="menu-item px-3">
                                     <a href="{{ url('lang/ar') }}"
                                     class="menu-link d-flex px-5 {{ app()->getLocale() == 'ar' ? 'active' : '' }}">
@@ -137,7 +150,8 @@
                                     </a>
                                 </div>
                             </div>
-                        </div> -->
+                            <!--end::Menu sub-->
+                        </div>
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5 my-1">
@@ -146,7 +160,8 @@
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="#" class="menu-link px-5">Sign Out</a>
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+                            <a href="#" id="logoutButton" class="menu-link px-5" data-url="{{ route('logout') }}" data-login-url="{{ route('login') }}">Sign Out</a>
                         </div>
                         <!--end::Menu item-->
                     </div>

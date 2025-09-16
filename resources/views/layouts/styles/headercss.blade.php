@@ -36,6 +36,24 @@
             <link href="{{ asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
         @endif
     @endif
+    <style>
+    .symbol.symbol-30px {
+        width: 30px;
+        height: 30px;
+        border-radius: 20%;
+    }
+    .symbol.symbol-50px {
+        width: 50px;
+        height: 50px;
+        border-radius: 20%;
+    }
 
-    <!--end::Global Stylesheets Bundle-->
+    @media (min-width: 768px) {
+        .symbol.symbol-md-40px {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+    }
+    </style>
 </head>
