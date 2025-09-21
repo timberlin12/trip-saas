@@ -47,4 +47,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // public function company()
+    // {
+    //     return $this->belongsTo(\App\Models\Admin\Company::class, 'company_id');
+    // }
 }

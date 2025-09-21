@@ -18,7 +18,7 @@ class PricingPlansController extends Controller
     public function createOrEdit($id = null)
     {
         $pricingPlan = $id ? PricingPlans::findOrFail($id) : new PricingPlans();
-        return view('admin.pricing_plans.create', compact('pricingPlan'));
+        return view('admin.pricing_plans.form', compact('pricingPlan'));
     }
 
     public function storeOrUpdate(StorePricingPlanRequest $request)

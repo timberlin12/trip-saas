@@ -47,6 +47,21 @@
                 </div>
                 @endif
                 @if(isset($roles[$userRole]) && $userRole == 'superadmin')
+                    <!-- Company -->
+                    <div class="menu-item {{ (Request::route()->getName() == 'companies.index') ? 'hover show' : '' }}">
+                        <a class="menu-link" href="{{ route('companies.index') }}">
+                            <span class="menu-icon">
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path d="M20.59 13.41L13.41 20.59C13.05 20.95 12.55 21.13 12.05 21.13C11.55 21.13 11.05 20.95 10.69 20.59L3.41 13.41C3.05 13.05 2.87 12.55 2.87 12.05V5C2.87 3.9 3.77 3 4.87 3H11.92C12.42 3 12.92 3.2 13.29 3.57L20.59 10.87C21.35 11.63 21.35 12.85 20.59 13.41Z" fill="currentColor"/>
+                                        <circle cx="8.5" cy="8.5" r="1.5" fill="white"/>
+                                    </svg>
+                                </span>
+                            </span>
+                            <span class="menu-title">Companies</span>
+                        </a>
+                    </div>
+
                     <!-- Pricing plans -->
                     <div class="menu-item {{ (Request::route()->getName() == 'pricing-plans.index') ? 'hover show' : '' }}">
                         <a class="menu-link" href="{{ route('pricing-plans.index') }}">

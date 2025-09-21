@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\admin\CompanyController;
 use App\Http\Controllers\admin\PricingPlansController;
 
 
@@ -14,6 +15,12 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+        // Company
+        Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+        Route::get('/companies/show/{id?}', [CompanyController::class, 'createOrEdit'])->name('companies.createOrEdit');
+        Route::post('companies/save', [CompanyController::class, 'storeOrUpdate'])->name('companies.storeOrUpdate');
+        Route::delete('/companies/delete/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 
         // Pricing Plans Management
         Route::get('/pricing-plans', [PricingPlansController::class, 'index'])->name('pricing-plans.index');
