@@ -55,6 +55,6 @@ class Company extends Authenticatable
     // pricing plan relationship
     public function pricingPlan()
     {
-        return $this->belongsTo(PricingPlans::class, 'plan_id');
+        return $this->belongsTo(PricingPlans::class, 'plan_id')->where('status', true);
     }
 }

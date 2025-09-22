@@ -77,12 +77,17 @@ class CompanyDataTable extends BaseDataTable
         if ($request->search_text != '') {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search_text . '%')
-                  ->orWhere('email', 'like', '%' . $request->search_text . '%')
-                  ->orWhere('phone', 'like', '%' . $request->search_text . '%')
-                  ->orWhere('owner_name', 'like', '%' . $request->search_text . '%')
-                  ->orWhereHas('pricingPlan', function ($q) use ($request) {
-                      $q->where('plan_name', 'like', '%' . $request->search_text . '%');
-                  });
+                ->orWhere('email', 'like', '%' . $request->search_text . '%')
+                ->orWhere('phone', 'like', '%' . $request->search_text . '%')
+                ->orWhere('owner_name', 'like', '%' . $request->search_text . '%')
+                ->orWhereHas('pricingPlan', function ($q) use ($request) {
+                    $q->where('plan_name', 'like', '%' . $request->search_text . '%');
+                })
+                ->orWhere(function ($q) use ($request) {
+                    if (str_contains(strtolower($request->search_text), 'not assigned')) {
+                        $q->whereNull('plan_id');
+                    }
+                });
             });
         }
 

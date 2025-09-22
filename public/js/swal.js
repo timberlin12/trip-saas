@@ -39,6 +39,7 @@ $(document).ready(function () {
             timer: 3000
         });
     }
+
     // === Helper function to show delete confirmation ===
     window.confirmDelete = function(id, url, onSuccess, are_you_sure, you_will_not_be_able_to_recover_the_deleted_record, yes_delete_it, cancel) {
         Swal.fire({
@@ -48,7 +49,7 @@ $(document).ready(function () {
             showCancelButton: true,
             confirmButtonText: yes_delete_it,
             cancelButtonText: cancel,
-            customClass: { confirmButton:'btn btn-danger', cancelButton:'btn btn-secondary' },
+            customClass: { confirmButton: 'btn btn-danger', cancelButton: 'btn btn-secondary' },
             buttonsStyling: false
         }).then((result) => {
             if (result.isConfirmed) {
@@ -66,6 +67,14 @@ $(document).ready(function () {
                             if (typeof onSuccess === 'function') onSuccess();
                         } else if (response.error) {
                             showSwalToast('error', response.error);
+                        }
+                    },
+                    error: function (xhr) {
+                        // Handle HTTP errors (e.g., 403)
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            showSwalToast('error', xhr.responseJSON.error);
+                        } else {
+                            showSwalToast('error', 'An unexpected error occurred.');
                         }
                     }
                 });

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->enum('billing_cycle', ['monthly', 'yearly', 'lifetime'])->default('monthly');
-            $table->integer('trial_days')->nullable();   // just remove ->after
-            $table->integer('max_users')->nullable();    // just remove ->after
+            $table->integer('trial_days')->nullable();
+            $table->integer('max_users')->nullable();
             $table->json('features')->nullable();
             $table->boolean('is_popular')->default(false);
             $table->boolean('status')->default(true);

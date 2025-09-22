@@ -189,11 +189,13 @@
                     @enderror
                 </div>
 
-                <!-- Plan -->
+               <!-- Plan -->
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">
-                        <i class="fas fa-toggle-on text-primary me-1"></i> Plan <span class="text-danger">*</span></label>
-                    <select name="plan_id" class="form-select form-select-lg" required>
+                        <i class="fas fa-toggle-on text-primary me-1"></i> Plan
+                    </label>
+                    <select name="plan_id" class="form-select form-select-lg">
+                        <option value="" {{ old('plan_id', $company->plan_id) == '' ? 'selected' : '' }}>Select Plan</option>
                         @foreach ($pricingPlans as $plan)
                             <option value="{{ $plan->id }}" {{ old('plan_id', $company->plan_id) == $plan->id ? 'selected' : '' }}>
                                 {{ $plan->plan_name }}
